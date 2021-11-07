@@ -18,14 +18,53 @@ COMMITTER_NAME=
 COMMITTER_EMAIL=
 COMMITER_DATE=
 
+BRANCH=
+
 function getAuthorName {
-    FILE=$1
-    AUTHOR_NAME=$(git log --pretty=format:"%an" --reverse $FILE | sed -n 1p)
+    AUTHOR_NAME=$(git log --pretty=format:"%an" --reverse "$1" | sed -n 1p)
+    echo "   Nome do Autor......: $AUTHOR_NAME"
+}
+
+function getAuthorEmail {
+    AUTHOR_EMAIL=$(git log --pretty=format:"%ae" --reverse "$1" | sed -n 1p)
+    echo "   E-Mail do Autor....: $AUTHOR_EMAIL"
+}
+
+function getAuthorDate {
+    AUTHOR_DATE=$(git log --pretty=format:"%ad" --reverse --date=iso "$1" | sed -n 1p)
+    echo "   Data de criação....: $AUTHOR_DATE"
 }
 
 function processAuthor {
-    FILE=$1
-    echo $(getAuthorName $FILE)
+    getAuthorName $1
+    getAuthorEmail $1
+    getAuthorDate $1
+}
+
+function getCommitterName {
+    COMMITTER_NAME=$(git log --pretty=format:"%cn" -1 "$1")
+    echo "   Nome do Alterador..: $COMMITTER_NAME"
+}
+
+function getCommitterEmail {
+    COMMITTER_EMAIL=$(git log --pretty=format:"%ae" -1 "$1")
+    echo "   E-Mail do Alterador: $COMMITTER_EMAIL"
+}
+
+function getCommitterDate {
+    COMMITTER_DATE=$(git log --pretty=format:"%ad" -1 --date=iso "$1")
+    echo "   Data de alteração..: $COMMITTER_DATE"
+}
+
+function processCommitter {
+    getCommitterName $1
+    getCommitterEmail $1
+    getCommitterDate $1
+}
+
+function processBranch {
+    BRANCH=$(git branch --show-current)
+    echo "   Branch.............: $BRANCH"
 }
 
 if [ ! -d ".git" ]; then
@@ -42,6 +81,8 @@ fi
 echo "Processando o arquivo: $FILE."
 
 processAuthor $FILE
+processCommitter $FILE
+processBranch $FILE
 
 echo "Arquivo $FILE processado."
 exit 0
