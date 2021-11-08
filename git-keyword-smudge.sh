@@ -21,50 +21,108 @@ COMMITER_DATE=
 BRANCH=
 
 function getAuthorName {
-    AUTHOR_NAME=$(git log --pretty=format:"%an" --reverse "$1" | sed -n 1p)
-    echo "   Nome do Autor......: $AUTHOR_NAME"
+    if [ -z "$AUTHOR_NAME" ]; then
+        AUTHOR_NAME=$(git log --pretty=format:"%an" --reverse "$1" | sed -n 1p)
+    fi
 }
 
 function getAuthorEmail {
-    AUTHOR_EMAIL=$(git log --pretty=format:"%ae" --reverse "$1" | sed -n 1p)
-    echo "   E-Mail do Autor....: $AUTHOR_EMAIL"
+    if [ -z "$AUTHOR_EMAIL" ]; then
+        AUTHOR_EMAIL=$(git log --pretty=format:"%ae" --reverse "$1" | sed -n 1p)
+    fi
 }
 
 function getAuthorDate {
-    AUTHOR_DATE=$(git log --pretty=format:"%ad" --reverse --date=iso "$1" | sed -n 1p)
-    echo "   Data de criação....: $AUTHOR_DATE"
-}
-
-function processAuthor {
-    getAuthorName $1
-    getAuthorEmail $1
-    getAuthorDate $1
+    if [ -z "$AUTHOR_DATE" ]; then
+        AUTHOR_DATE=$(git log --pretty=format:"%ad" --reverse --date=iso "$1" | sed -n 1p)
+    fi
 }
 
 function getCommitterName {
-    COMMITTER_NAME=$(git log --pretty=format:"%cn" -1 "$1")
-    echo "   Nome do Alterador..: $COMMITTER_NAME"
+    if [ -z "$COMMITER_NAME" ]; then
+        COMMITTER_NAME=$(git log --pretty=format:"%cn" -1 "$1")
+    fi
 }
 
 function getCommitterEmail {
-    COMMITTER_EMAIL=$(git log --pretty=format:"%ae" -1 "$1")
-    echo "   E-Mail do Alterador: $COMMITTER_EMAIL"
+    if [ -z "$COMMITTER_EMAIL" ]; then
+        COMMITTER_EMAIL=$(git log --pretty=format:"%ae" -1 "$1")
+    fi
 }
 
 function getCommitterDate {
-    COMMITTER_DATE=$(git log --pretty=format:"%ad" -1 --date=iso "$1")
-    echo "   Data de alteração..: $COMMITTER_DATE"
+    if [ -z "$COMMITTER_DATE" ]; then
+        COMMITTER_DATE=$(git log --pretty=format:"%ad" -1 --date=iso "$1")
+    fi
+}
+
+function processAuthor {
+    getAuthorName "$1"
+    getAuthorEmail "$1"
+    getAuthorDate "$1"
+    SEARCH='\$Author\$'
+    REPLACE='\$Criado por: '$AUTHOR_NAME' <'$AUTHOR_EMAIL'>, '$AUTHOR_DATE'\$'
+    sed -i -e "s|$SEARCH|$REPLACE|g" "$1"
+}
+
+function processAuthorName {
+    getAuthorName "$1"
+    SEARCH='\$AuthorName\$'
+    REPLACE='\$Criado por: '$AUTHOR_NAME'\$'
+    sed -i -e "s|$SEARCH|$REPLACE|g" "$1"
+}
+
+function processAuthorEmail {
+    getAuthorEmail "$1"
+    SEARCH='\$AuthorEmail\$'
+    REPLACE='\$Criado por: '$AUTHOR_EMAIL'\$'
+    sed -i -e "s|$SEARCH|$REPLACE|g" "$1"
+}
+
+function processAuthorDate {
+    getAuthorDate "$1"
+    SEARCH='\$AuthorDate\$'
+    REPLACE='\$Criado em: '$AUTHOR_DATE'\$'
+    sed -i -e "s|$SEARCH|$REPLACE|g" "$1"
 }
 
 function processCommitter {
-    getCommitterName $1
-    getCommitterEmail $1
-    getCommitterDate $1
+    getCommitterName "$1"
+    getCommitterEmail "$1"
+    getCommitterDate "$1"
+    SEARCH='\$Committer\$'
+    REPLACE='\$Alterado por: '$COMMITTER_NAME' <'$COMMITTER_EMAIL'>, '$COMMITTER_DATE'\$'
+    sed -i -e "s|$SEARCH|$REPLACE|g" "$1"    
+}
+
+function processCommitterName {
+    getCommitterName "$1"
+    SEARCH='\$CommitterName\$'
+    REPLACE='\$Alterado por: '$COMMITTER_NAME'\$'
+    sed -i -e "s|$SEARCH|$REPLACE|g" "$1"    
+}
+
+function processCommitterEmail {
+    getCommitterEmail "$1"
+    SEARCH='\$CommitterEmail\$'
+    REPLACE='\$Alterado por: '$COMMITTER_EMAIL'\$'
+    sed -i -e "s|$SEARCH|$REPLACE|g" "$1"    
+}
+
+function processCommitterDate {
+    getCommitterDate "$1"
+    SEARCH='\$CommitterDate\$'
+    REPLACE='\$Alterado por: '$COMMITTER_DATE'\$'
+    sed -i -e "s|$SEARCH|$REPLACE|g" "$1"    
 }
 
 function processBranch {
-    BRANCH=$(git branch --show-current)
-    echo "   Branch.............: $BRANCH"
+    if [ -z "$BRANCH" ]; then 
+        BRANCH=$(git branch --show-current)
+    fi
+    SEARCH='\$Branch\$'
+    REPLACE='\$Ramo: '$BRANCH'\$'
+    sed -i -e "s|$SEARCH|$REPLACE|g" "$1"
 }
 
 if [ ! -d ".git" ]; then
@@ -78,11 +136,14 @@ if [ ! -f "$FILE" ]; then
     exit 2
 fi
 
-echo "Processando o arquivo: $FILE."
+processAuthor "$FILE"
+processAuthorName "$FILE"
+processAuthorEmail "$FILE"
+processAuthorDate "$FILE"
+processCommitter "$FILE"
+processCommitterName "$FILE"
+processCommitterEmail "$FILE"
+processCommitterDate "$FILE"
+processBranch "$FILE"
 
-processAuthor $FILE
-processCommitter $FILE
-processBranch $FILE
-
-echo "Arquivo $FILE processado."
 exit 0

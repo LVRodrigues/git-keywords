@@ -1,6 +1,12 @@
 /**
-* @author $AuthorName$ &lt;$AuthorEmail$&gt;
+* @author $Author$
+* @author $AuthorName$ 
+* @author $AuthorEmail$
 * @since $AuthorDate$
-* @author $CommitterName$ &lt;$CommitterEmail$&gt;
-* since $CommitterDAte$
+*
+* @author $Committer$
+* @author $CommitterName$ 
+* @author $CommitterEmail$
+* @since $CommitterDate$
+* Brach: $Branch$
 */
