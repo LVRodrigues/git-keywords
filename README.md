@@ -21,3 +21,16 @@ A idéia é usar como o Subversion, trocando palavras reservadas por informaçõ
 * bash
 * git
 * sed
+
+## Como usar
+
+```bash
+mkdir <PROJECT>/.git-filters
+cp git-keyword-smudge.sh <PROJECT>/.git_filters/.
+cp git-keyword-clean.sh <PROJECT>/.git-filters/.
+
+git config --local filter.keyword.smudge ".git_filters/git-keyword-smudge.sh %f"
+git config --local filter.keyword.clean ".git_filters/git-keyword-clean.sh %s"
+
+echo "*.java filter=keyword" >> <PROJECT>/.gitattributes
+```
