@@ -1,5 +1,7 @@
 # git-keywords
 
+> Em desenvolvimento.
+
 Substituição de palavras durante o checkout e commit do GIT.
 
 A idéia é usar como o Subversion, trocando palavras reservadas por informações obtidas no log do GIT:
