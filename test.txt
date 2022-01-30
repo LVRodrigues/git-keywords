@@ -1,12 +1,12 @@
 /**
-* @author $Criado por: Luciano Vieira Rodrigues <lvrodriguesline@gmail.com>, 2021-11-07 11:34:56 -0300$
-* @author $Criado por: Luciano Vieira Rodrigues$ 
-* @author $Criado por: lvrodriguesline@gmail.com$
-* @since $Criado em: 2021-11-07 11:34:56 -0300$
+* @author $Author$
+* @author $AuthorName$ 
+* @author $AuthorEmail$
+* @since $AuthorDate$
 *
-* @author $Alterado por: Luciano Vieira Rodrigues <lvrodriguesline@gmail.com>, 2021-11-08 08:29:55 -0300$
-* @author $Alterado por: Luciano Vieira Rodrigues$ 
-* @author $Alterado por: lvrodriguesline@gmail.com$/
-* @since $Alterado em: 2021-11-08 08:29:55 -0300$
-* branch: $Ramo: main$
+* @author $Committer$
+* @author $CommitterName$ 
+* @author $CommitterEmail$
+* @since $CommitterDate$
+* branch: $Branch$
 */

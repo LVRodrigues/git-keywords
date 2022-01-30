@@ -41,4 +41,4 @@ sed -e "s|$SEARCH_BRANCH|\$Branch\$|g" \
     -e "s|$SEARCH_AUTHOR_EMAIL|\$AuthorEmail\$|g" \
     -e "s|$SEARCH_AUTHOR_NAME|\$AuthorName\$|g" $FILE
 
-exit 0
+exit $?
