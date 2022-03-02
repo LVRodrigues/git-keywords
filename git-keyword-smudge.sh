@@ -35,13 +35,13 @@ SEARCH_COMMITTER_DATE='\$CommitterDate\$'
 SEARCH_BRANCH='\$Branch\$'
 
 cat - | sed \
-    -e "s|$SEARCH_AUTHOR|\$Criado por: $AUTHOR_NAME &lt;$AUTHOR_EMAIL&gt;, $AUTHOR_DATE\$|g" \
+    -e "s|$SEARCH_AUTHOR|\$Criado por: $AUTHOR_NAME ($AUTHOR_EMAIL) em $AUTHOR_DATE\$|g" \
     -e "s|$SEARCH_AUTHOR_NAME|\$Criado por: $AUTHOR_NAME\$|g" \
     -e "s|$SEARCH_AUTHOR_EMAIL|\$Criado por: $AUTHOR_EMAIL\$|g" \
     -e "s|$SEARCH_AUTHOR_DATE|\$Criado em: $AUTHOR_DATE\$|g" \
-    -e "s|$SEARCH_COMMITTER|\$Alterado por: $COMMITTER_NAME &lt;$COMMITTER_EMAIL&gt;, $COMMITTER_DATE\$|g" \
+    -e "s|$SEARCH_COMMITTER|\$Alterado por: $COMMITTER_NAME ($COMMITTER_EMAIL) em $COMMITTER_DATE\$|g" \
     -e "s|$SEARCH_COMMITTER_NAME|\$Alterado por: $COMMITTER_NAME\$|g" \
-    -e "s|$SEARCH_COMMITTER_EMAIL|\$Alterado por: $COMMITTER_EMAIL\$/|g" \
+    -e "s|$SEARCH_COMMITTER_EMAIL|\$Alterado por: $COMMITTER_EMAIL\$|g" \
     -e "s|$SEARCH_COMMITTER_DATE|\$Alterado em: $COMMITTER_DATE\$|g" \
     -e "s|$SEARCH_BRANCH|\$Ramo: $BRANCH\$|g"
 
