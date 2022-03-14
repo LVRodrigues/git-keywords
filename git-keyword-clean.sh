@@ -16,11 +16,11 @@ if [ ! -d ".git" ]; then
 fi
 
 SEARCH_BRANCH='\$Ramo\:.*\$'
-SEARCH_COMMITTER='\$Alterado por:.*@.*\,.*-.*-.*\$'
+SEARCH_COMMITTER='\$Alterado por:.*@.*em.*-.*-.*\$'
 SEARCH_COMMITTER_DATE='\$Alterado em: [0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}.*\$'
 SEARCH_COMMITTER_EMAIL='\$Alterado por:.*@.*\..*\$'
 SEARCH_COMMITTER_NAME='\$Alterado por:.*\$'
-SEARCH_AUTHOR='\$Criado por:.*@.*\,.*-.*-.*\$'
+SEARCH_AUTHOR='\$Criado por:.*@.*em.*-.*-.*\$'
 SEARCH_AUTHOR_DATE='\$Criado em: [0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}.*\$'
 SEARCH_AUTHOR_EMAIL='\$Criado por:.*@.*\..*\$'
 SEARCH_AUTHOR_NAME='\$Criado por:.*\$'
